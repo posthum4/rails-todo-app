@@ -1,0 +1,15 @@
+<h1>Todos#edit</h1>
+<p>Find me in app/views/todos/edit.html.erb</p>
+
+<section class=todo-container>
+  <%= form_for @todo do |f| %>
+
+  <%= f.label :description %><br>
+  <%= f.text_area :description %><br>
+
+  <%= f.submit %>
+
+  <% end %>
+
+
+</section>
