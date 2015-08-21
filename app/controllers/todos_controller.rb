@@ -17,9 +17,16 @@ class TodosController < ApplicationController
   end
 
   def create
-    todo = Todo.new(description: params[:todo][:description])
-    todo.save
-    redirect_to root_path
+    p params
+    if request.xhr?
+      todo = Todo.new(description: params[:description])
+      todo.save
+      render json: todo
+    else
+      todo = Todo.new(description: params[:todo][:description])
+      todo.save
+      redirect_to root_path
+    end
   end
 
   def update
@@ -29,13 +36,22 @@ class TodosController < ApplicationController
     else
       todo.update(description: params[:todo][:description])
     end
-    redirect_to root_path
+    todo = Todo.find_by_id(params[:id])
+    if request.xhr?
+      render json: {id: todo.id, completed: todo.completed}
+    else
+      redirect_to root_path
+    end
   end
 
   def destroy
     todo = Todo.find_by_id(params[:id])
     todo.destroy
-    redirect_to root_path
+    if request.xhr?
+      render json: {id: todo.id}
+    else
+      redirect_to root_path
+    end
   end
 
   def completed

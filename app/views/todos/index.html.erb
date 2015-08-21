@@ -1,18 +1,24 @@
 <h1>Todos#index</h1>
 
-<section class="todo-container">
+
+  <section>
+    <input id="new_todo" type="text" name="description"/>
+
+  </section>
+
+<section class="todo_container">
 
   <%= button_to "Completed", {action: "completed"}, method: :get %>
   <%= button_to "Active", {action: "active"}, method: :get %>
-  <table>
+  <table class="todo_list">
     <tr>
       <th>Description</th>
       <th>Completed</th>
       <th colspan=3></th>
     </tr>
     <% @todos.each do |task| %>
-    <tr>
-      <td><%= task.description %></td>
+    <tr id ="<%= task.id %>">
+      <td class="todo_edit"><%= task.description %></td>
       <td><%= task.completed %></td>
       <td><%= button_to "Edit", {action: "edit", id: task.id}, method: :get %></td>
       <td><%= button_to "Delete", {action: "destroy", id: task.id}, method: :delete %></td>
@@ -22,16 +28,5 @@
     <% end %>
   </table>
 
-  <section class="new-todo">
-    <%= form_for @todo do |f| %>
-
-    <%= f.label :description %><br>
-    <%= f.text_area :description %><br>
-
-    <%= f.submit %>
-
-    <% end %>
-
-  </section>
 
 </section>
